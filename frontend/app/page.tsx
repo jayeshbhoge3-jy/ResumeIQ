@@ -1,10 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import ResumeGraderAnimation from "../components/ResumeGraderAnimation";
 
 export default function Home() {
+  useEffect(() => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 
+      "http://localhost:8000";
+    fetch(`${apiUrl}/api/health`).catch(() => {});
+  }, []);
+
   return (
     <main className="flex-grow flex flex-col pt-[80px] relative bg-white min-h-screen">
       
