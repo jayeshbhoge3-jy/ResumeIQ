@@ -3,11 +3,12 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import html2canvas from "html2canvas";
 
 export default function ResultsPage() {
   const [results, setResults] = useState<any>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [showToast, setShowToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
 
   const nextSlide = () => {
     if (results?.rewrites) {
@@ -31,18 +32,9 @@ export default function ResultsPage() {
         setResults({ error: "Failed to load scan results. The data might be corrupted." });
       }
     } else {
-      // Mock data
-      setResults({
-        ats_score: 85,
-        sub_scores: { keyword_score: 80, format_score: 90, impact_score: 85, alignment_score: 85 },
-        missing_keywords: ["Kubernetes", "AWS", "Agile", "Tableau", "Go-to-Market"],
-        found_keywords: ["React", "Python", "FastAPI", "PostgreSQL", "Data Analysis", "SQL", "Leadership"],
-        rewrites: [
-          { old: "Worked on the backend API.", new: "Architected a scalable backend API using FastAPI, increasing throughput by 40%." },
-          { old: "Helped team with deployment.", new: "Streamlined CI/CD deployment pipelines, reducing deployment time by 20 mins." },
-          { old: "Managed a team of developers to build the web app.", new: "Directed a team of 5 engineers to deliver a high-performance React application, leading to a 15% increase in user engagement." }
-        ]
-      });
+      if (typeof window !== "undefined" && !window.location.search) {
+         setResults({ empty: true });
+      }
     }
   }, []);
 
@@ -70,8 +62,38 @@ export default function ResultsPage() {
     URL.revokeObjectURL(url);
   };
 
+  const handleShare = async () => {
+    const card = document.getElementById("share-card");
+    if (!card) return;
+    try {
+      const canvas = await html2canvas(card, { scale: 2 });
+      const link = document.createElement("a");
+      link.download = "ResumeIQ_Score.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+      
+      setToastMsg("Image Downloaded!");
+      setTimeout(() => setToastMsg(""), 2000);
+    } catch (error) {
+      console.error("Error generating share card", error);
+    }
+  };
+
   if (!results) {
     return <div className="min-h-screen flex items-center justify-center text-slate-500 bg-[#F8FAFC]">Loading results...</div>;
+  }
+
+  if (results.empty) {
+    return (
+      <div className="min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center text-slate-800 gap-6">
+        <span className="material-symbols-outlined text-[64px] text-slate-400">search_off</span>
+        <h1 className="text-3xl font-bold">No results found</h1>
+        <p className="text-slate-600 max-w-md text-center">It looks like you haven't scanned a resume yet. Let's get started!</p>
+        <Link href="/upload" className="bg-[#1FC79B] text-white px-6 py-2 rounded-lg hover:bg-[#18a982] transition-colors mt-4 shadow-sm">
+          Start New Analysis
+        </Link>
+      </div>
+    );
   }
 
   if (results.error) {
@@ -106,7 +128,7 @@ export default function ResultsPage() {
                 </p>
             </div>
             <div className="flex flex-wrap gap-3">
-                <button className="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors shadow-sm flex items-center gap-2">
+                <button onClick={handleShare} className="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors shadow-sm flex items-center gap-2">
                     <span className="material-symbols-outlined text-[18px]">share</span> Share
                 </button>
                 <Link href="/upload" className="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors shadow-sm flex items-center gap-2">
@@ -209,6 +231,25 @@ export default function ResultsPage() {
                         <span className="px-3 py-1 bg-[#1FC79B]/10 text-[#003827] border border-[#1FC79B]/30 rounded-full text-sm font-medium flex items-center gap-1">
                             <span className="material-symbols-outlined text-[16px]">compress</span> Reduce Clutter
                         </span>
+                    </div>
+
+                    <div className="mt-6 pt-6 border-t border-slate-100">
+                        <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Sections Detected</div>
+                        <div className="flex flex-wrap gap-2">
+                            {(results.sections_found || []).map((sec: string, idx: number) => (
+                                <span key={idx} className="bg-[#1FC79B]/10 text-[#003827] border border-[#1FC79B]/20 rounded-full px-3 py-1 text-xs font-semibold">
+                                    {sec}
+                                </span>
+                            ))}
+                            {["Summary", "Experience", "Education", "Skills", "Projects", "Certifications"]
+                                .filter(sec => !(results.sections_found || []).includes(sec))
+                                .map((sec: string, idx: number) => (
+                                    <span key={`missing-${idx}`} className="bg-red-50 text-red-600 border border-red-100 rounded-full px-3 py-1 text-xs font-semibold">
+                                        Missing: {sec}
+                                    </span>
+                                ))
+                            }
+                        </div>
                     </div>
                 </motion.div>
 
@@ -355,21 +396,21 @@ export default function ResultsPage() {
                                     
                                     <button className="absolute bottom-4 right-4 text-slate-400 hover:text-[#1FC79B] transition-colors bg-slate-50 p-2 rounded-lg" title="Copy to clipboard" onClick={() => {
                                         navigator.clipboard.writeText(results.rewrites[currentSlide].new);
-                                        setShowToast(true);
-                                        setTimeout(() => setShowToast(false), 2000);
+                                        setToastMsg("Copied!");
+                                        setTimeout(() => setToastMsg(""), 2000);
                                     }}>
                                         <span className="material-symbols-outlined text-[18px]">content_copy</span>
                                     </button>
                                     
                                     <AnimatePresence>
-                                        {showToast && (
+                                        {toastMsg && (
                                             <motion.div
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, y: 10 }}
                                                 className="absolute bottom-14 right-4 bg-slate-800 text-white text-xs px-3 py-1.5 rounded shadow-lg"
                                             >
-                                                Copied!
+                                                {toastMsg}
                                             </motion.div>
                                         )}
                                     </AnimatePresence>
@@ -413,6 +454,59 @@ export default function ResultsPage() {
             </ul>
         </div>
       </footer>
+
+      {/* Hidden Share Card */}
+      <div 
+        id="share-card" 
+        className="absolute left-[-9999px] top-0 w-[600px] h-[300px] bg-white flex flex-col justify-between p-8"
+        style={{ fontFamily: 'sans-serif' }}
+      >
+        <div className="flex justify-between items-start">
+          <div className="font-bold text-2xl text-[#1FC79B] flex items-center gap-2">
+            <div className="w-6 h-6 rounded bg-[#1FC79B] flex items-center justify-center text-white text-[12px]">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            ResumeIQ
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col items-center">
+            <span className={`text-7xl font-bold ${results.ats_score > 75 ? 'text-[#1FC79B]' : results.ats_score > 50 ? 'text-[#FFB86F]' : 'text-red-500'}`}>
+                {results.ats_score}
+            </span>
+            <span className="text-slate-400 font-medium text-lg">/ 100</span>
+            <div className="mt-2">
+              {results.ats_score >= 85 && <span className="px-3 py-1 rounded-full bg-[#1FC79B]/10 text-[#003827] font-bold text-sm">Excellent</span>}
+              {results.ats_score >= 70 && results.ats_score < 85 && <span className="px-3 py-1 rounded-full bg-[#3B82F6]/10 text-[#1E3A8A] font-bold text-sm">Good - Keep Improving</span>}
+              {results.ats_score >= 50 && results.ats_score < 70 && <span className="px-3 py-1 rounded-full bg-[#FFB86F]/10 text-[#7A3E00] font-bold text-sm">Below Average</span>}
+              {results.ats_score < 50 && <span className="px-3 py-1 rounded-full bg-[#EF4444]/10 text-[#7F1D1D] font-bold text-sm">Needs Major Work</span>}
+            </div>
+          </div>
+          
+          <div className="flex flex-col gap-4 w-[250px]">
+             {[
+                  { label: 'Keyword Match', score: results.sub_scores?.keyword_score || 0, color: 'bg-[#1FC79B]' },
+                  { label: 'Format', score: results.sub_scores?.format_score || 0, color: 'bg-[#1FC79B]' },
+                  { label: 'Impact', score: results.sub_scores?.impact_score || 0, color: 'bg-[#1FC79B]' },
+              ].map((item, idx) => (
+                  <div key={idx} className="flex flex-col gap-1">
+                      <div className="flex justify-between items-center text-sm font-bold text-slate-700">
+                        <span>{item.label}</span>
+                        <span>{item.score}</span>
+                      </div>
+                      <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                          <div className={`h-full rounded-full ${item.color}`} style={{ width: `${item.score}%` }} />
+                      </div>
+                  </div>
+              ))}
+          </div>
+        </div>
+
+        <div className="text-slate-400 text-sm font-medium mt-auto">
+          resumeiq.vercel.app
+        </div>
+      </div>
     </div>
   );
 }

@@ -179,13 +179,33 @@ def score_resume(resume_text: str, jd_text: str):
     }
 
 def extract_weak_bullets(resume_text: str) -> list:
-    """Extract bullet points that lack numbers or action verbs."""
+    """Extract bullet points that lack numbers or action verbs, are too short, or start with weak verbs."""
     lines = resume_text.splitlines()
-    bullets = [line.strip() for line in lines if len(line.strip()) > 20]
+    # A basic heuristic: assume bullets are lines that are decently long or start with a bullet character.
+    bullets = [line.strip() for line in lines if len(line.strip()) > 15]
     
     weak_bullets = []
+    
+    weak_verbs = [
+        "worked", "helped", "assisted", "was responsible for", 
+        "did", "made", "got", "had", "participated", "involved"
+    ]
+    
     for bullet in bullets:
-        if not re.search(r'\d', bullet):
+        bullet_lower = bullet.lower().lstrip("-•* ")
+        
+        # 1. Starts with a weak verb
+        starts_weak = any(bullet_lower.startswith(verb) for verb in weak_verbs)
+        
+        # 2. Shorter than 40 characters (too vague)
+        too_short = len(bullet) < 40
+        
+        # 3. Has no numbers
+        has_no_numbers = not bool(re.search(r'\d', bullet))
+        
+        # A bullet is weak if it's too short, starts with a weak verb, or lacks numbers
+        if starts_weak or too_short or has_no_numbers:
             weak_bullets.append(bullet)
             
-    return weak_bullets[:3]
+    # Return 5 bullets as requested
+    return weak_bullets[:5]

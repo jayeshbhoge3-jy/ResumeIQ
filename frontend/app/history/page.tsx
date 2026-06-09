@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FileText, Calendar } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 type ScanRecord = {
   id: number;
@@ -106,6 +107,32 @@ export default function HistoryPage() {
               <p>No scans found. Upload a resume to see history.</p>
             </div>
           ) : (
+            <>
+              {history.length >= 2 && (
+                <div className="bg-white border border-slate-100 shadow-sm p-6 rounded-2xl mb-8">
+                  <h2 className="text-lg font-bold text-slate-800 mb-6">Score Trend</h2>
+                  <div className="w-full h-[180px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart
+                        data={[...history].reverse().map(h => ({
+                          date: new Date(h.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }),
+                          score: h.ats_score
+                        }))}
+                      >
+                        <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#94a3b8' }} dy={10} />
+                        <YAxis domain={[0, 100]} hide={true} />
+                        <Tooltip 
+                          contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                          itemStyle={{ color: '#1FC79B', fontWeight: 'bold' }}
+                          labelStyle={{ color: '#64748b', fontSize: '12px' }}
+                          formatter={(value: any) => [`${value} / 100`, 'ATS Score']}
+                        />
+                        <Line type="monotone" dataKey="score" stroke="#1FC79B" strokeWidth={3} dot={{ r: 4, fill: '#1FC79B', strokeWidth: 0 }} activeDot={{ r: 6 }} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              )}
             <div className="grid grid-cols-1 gap-6">
               {history.map((scan, index) => (
                 <motion.div
@@ -166,6 +193,7 @@ export default function HistoryPage() {
                 </motion.div>
               ))}
             </div>
+            </>
           )}
         </div>
       </motion.div>

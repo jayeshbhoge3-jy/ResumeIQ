@@ -193,11 +193,37 @@ export default function UploadPage() {
                             <span>2. Target Job Description</span>
                             <span className={`text-xs ${jd.length > 0 ? 'text-slate-400' : 'text-slate-400 opacity-0'}`}>{jd.length} / 5000</span>
                         </div>
-                        <div className="relative h-[280px]">
+                        
+                        {/* Job Role Presets */}
+                        <div className="flex flex-col gap-1">
+                            <label className="text-sm font-medium text-slate-700">Or select a job role to auto-fill JD</label>
+                            <select 
+                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 focus:outline-none focus:border-[#1FC79B] transition-colors cursor-pointer appearance-none"
+                                onChange={(e) => {
+                                    if (e.target.value) {
+                                        setJd(e.target.value);
+                                    }
+                                }}
+                                defaultValue=""
+                            >
+                                <option value="" disabled>Select a role...</option>
+                                <option value="We are looking for a Software Engineer with experience in Python, JavaScript, REST APIs, system design, microservices, Docker, Kubernetes, CI/CD pipelines, Git, SQL, PostgreSQL, AWS or GCP, unit testing, agile methodology, code review, data structures, algorithms, scalability, debugging.">Software Engineer</option>
+                                <option value="Seeking a Frontend Developer skilled in React, Next.js, TypeScript, Tailwind CSS, HTML5, CSS3, responsive design, web performance optimization, accessibility, REST APIs, state management, Redux, Framer Motion, animations, cross-browser compatibility, Git, Figma, UI/UX principles.">Frontend Developer</option>
+                                <option value="Looking for a Backend Developer with Node.js, Python, FastAPI, Django, REST APIs, GraphQL, PostgreSQL, MongoDB, Redis, Docker, microservices architecture, authentication, JWT, OAuth, system design, AWS, CI/CD, message queues, Kafka, performance optimization, database indexing.">Backend Developer</option>
+                                <option value="Hiring Full Stack Developer with React, Next.js, Node.js, Python, FastAPI, PostgreSQL, MongoDB, Redis, Docker, Kubernetes, REST APIs, TypeScript, Git, CI/CD, AWS, Tailwind CSS, system design, authentication, deployment, microservices, agile, code review.">Full Stack Developer</option>
+                                <option value="Seeking Data Scientist with Python, machine learning, TensorFlow, PyTorch, scikit-learn, pandas, NumPy, data visualization, Matplotlib, Seaborn, SQL, feature engineering, model deployment, NLP, deep learning, statistics, A/B testing, Jupyter, MLOps, data pipelines, AWS SageMaker.">Data Scientist</option>
+                                <option value="Looking for DevOps Engineer with Docker, Kubernetes, CI/CD pipelines, Jenkins, GitHub Actions, Terraform, Ansible, AWS, GCP, Azure, Linux, bash scripting, monitoring, Prometheus, Grafana, ELK stack, infrastructure as code, networking, security, service mesh, Helm charts.">DevOps Engineer</option>
+                                <option value="Hiring Product Manager with product roadmap planning, user research, agile methodology, Jira, stakeholder management, data analysis, SQL, A/B testing, go-to-market strategy, PRD writing, prioritization, user stories, OKRs, KPIs, cross-functional collaboration, wireframing, Figma, market research.">Product Manager</option>
+                                <option value="Seeking UI/UX Designer with Figma, Adobe XD, user research, wireframing, prototyping, design systems, usability testing, accessibility, responsive design, interaction design, information architecture, user journey mapping, Sketch, component libraries, visual design, typography, color theory.">UI/UX Designer</option>
+                            </select>
+                            <span className="text-xs text-[#1FC79B] font-medium">Quick start without a real JD</span>
+                        </div>
+
+                        <div className="relative h-[200px]">
                             <textarea 
                                 value={jd}
                                 onChange={(e) => setJd(e.target.value.substring(0, 5000))}
-                                className="w-full h-full resize-none bg-slate-50 border border-slate-200 rounded-xl p-5 text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-primary focus:bg-white transition-all shadow-inner" 
+                                className="w-full h-full resize-none bg-slate-50 border border-slate-200 rounded-xl p-5 text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-[#1FC79B] focus:bg-white transition-all shadow-inner custom-scrollbar" 
                                 placeholder="Paste the target job description here..."
                             ></textarea>
                         </div>
