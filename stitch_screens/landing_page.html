@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ResumeIQ - Get Hired Faster with AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Syne:wght@400;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary": "#ffb86f",
+                        "primary-container": "#4494e7",
+                        "surface-tint": "#a1c9ff",
+                        "on-secondary-fixed-variant": "#00513a",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-background": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "primary-fixed-dim": "#a1c9ff",
+                        "inverse-primary": "#0060a8",
+                        "on-tertiary-fixed": "#2c1600",
+                        "secondary-fixed": "#86f8c9",
+                        "on-secondary-fixed": "#002115",
+                        "on-error": "#690005",
+                        "outline": "#8b919d",
+                        "on-surface": "#e5e2e1",
+                        "tertiary-container": "#cf7e11",
+                        "outline-variant": "#414751",
+                        "on-primary-container": "#002b4f",
+                        "on-primary-fixed-variant": "#004880",
+                        "surface-container": "#201f1f",
+                        "on-tertiary": "#492900",
+                        "on-secondary": "#003827",
+                        "on-primary": "#00325a",
+                        "surface-container-highest": "#353534",
+                        "primary": "#a1c9ff",
+                        "secondary": "#68dbae",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary-container": "#402300",
+                        "surface-variant": "#353534",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#003121",
+                        "on-surface-variant": "#c0c7d3",
+                        "secondary-fixed-dim": "#68dbae",
+                        "inverse-surface": "#e5e2e1",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-low": "#1c1b1b",
+                        "surface": "#131313",
+                        "primary-fixed": "#d2e4ff",
+                        "on-primary-fixed": "#001c38",
+                        "background": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#26a37a",
+                        "tertiary-fixed-dim": "#ffb86f",
+                        "surface-bright": "#3a3939",
+                        "surface-container-lowest": "#0e0e0e"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "base": "8px",
+                        "margin": "32px",
+                        "xl": "80px",
+                        "gutter": "24px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "lg": "48px"
+                    },
+                    fontFamily: {
+                        "label-sm": ["DM Sans"],
+                        "display-lg-mobile": ["Syne"],
+                        "headline-md": ["Syne"],
+                        "display-lg": ["Syne"],
+                        "label-mono": ["JetBrains Mono"],
+                        "body-lg": ["DM Sans"],
+                        "body-md": ["DM Sans"]
+                    },
+                    fontSize: {
+                        "label-sm": ["12px", { lineHeight: "1", fontWeight: "600" }],
+                        "display-lg-mobile": ["32px", { lineHeight: "1.2", letterSpacing: "0.02em", fontWeight: "800" }],
+                        "headline-md": ["24px", { lineHeight: "1.3", letterSpacing: "0.01em", fontWeight: "700" }],
+                        "display-lg": ["48px", { lineHeight: "1.1", letterSpacing: "0.02em", fontWeight: "800" }],
+                        "label-mono": ["14px", { lineHeight: "1.2", letterSpacing: "0.05em", fontWeight: "500" }],
+                        "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            overflow-x: hidden;
+            cursor: none; /* Hide default cursor for custom cursor */
+        }
+
+        /* Custom Cursor */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: theme('colors.primary');
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        #custom-cursor.hovering {
+            width: 32px;
+            height: 32px;
+            background-color: transparent;
+            border: 1px solid theme('colors.primary');
+        }
+
+        /* Glassmorphism utility */
+        .glass-panel {
+            background-color: rgba(19, 19, 19, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 1px 1px 0px 0px rgba(255,255,255,0.05);
+        }
+
+        .glass-card-hover {
+            transition: all 0.3s ease;
+        }
+        .glass-card-hover:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px -10px rgba(161, 201, 255, 0.15), inset 1px 1px 0px 0px rgba(255,255,255,0.08);
+        }
+
+        /* Hero Animations */
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-nav { animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        @keyframes pulse-badge {
+            0% { box-shadow: 0 0 0 0 rgba(161, 201, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(161, 201, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(161, 201, 255, 0); }
+        }
+        .badge-pulse { animation: pulse-badge 2s infinite; }
+
+        .word-stagger { opacity: 0; display: inline-block; transform: translateY(10px); }
+        @keyframes wordFade { to { opacity: 1; transform: translateY(0); } }
+
+        /* Scroll Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 3D Tilt Card */
+        #hero-card {
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
+        .card-layer {
+            transform: translateZ(30px);
+        }
+
+        /* New Background System */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        /* CSS fallback/overlay for dot grid */
+        .dot-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 200vh; /* Extra height for infinite scroll illusion */
+            background-image: radial-gradient(circle at center, rgba(255,255,255,0.08) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: -3;
+            animation: driftUp 20s linear infinite;
+        }
+        
+        @keyframes driftUp {
+            from { transform: translateY(0); }
+            to { transform: translateY(-32px); } /* Move by exactly one tile size to loop seamlessly */
+        }
+
+        /* Hide complex canvas layers on mobile, keep simple CSS dots and orbs */
+        @media (max-width: 768px) {
+            #bg-canvas { opacity: 0.5; } /* We will handle mobile rendering in JS too */
+            .dot-grid { display: none; }
+        }
+    </style>
+</head>
+<body class="antialiased relative min-h-screen flex flex-col">
+<!-- Custom Cursor -->
+<div class="hidden md:block" id="custom-cursor"></div>
+<!-- Background Effects -->
+<div class="dot-grid hidden md:block"></div>
+<canvas id="bg-canvas"></canvas>
+<div class="fixed inset-0 pointer-events-none z-[-1] bg-gradient-to-b from-transparent via-background/50 to-background"></div>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-xl border-b border-outline-variant/10 shadow-[0_0_20px_rgba(161,201,255,0.1)] flex justify-between items-center px-margin py-base max-w-screen-xl mx-auto left-0 right-0 animate-nav">
+<div class="font-display-lg text-headline-md font-extrabold text-primary tracking-tight">ResumeIQ</div>
+<div class="hidden md:flex gap-margin items-center">
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1 active-nav-item" href="#">Features</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-all duration-300 hover:scale-[1.02] interactive-elem" href="#">How it works</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-all duration-300 hover:scale-[1.02] interactive-elem" href="#">Pricing</a>
+</div>
+<button class="bg-primary-container text-on-primary-container font-label-mono text-label-mono px-md py-sm rounded hover:scale-[1.02] active:scale-95 transition-all duration-150 shadow-[0_0_15px_rgba(68,148,231,0.3)] hover:shadow-[0_0_25px_rgba(68,148,231,0.5)] interactive-elem">
+            Analyze my resume
+        </button>
+</nav>
+<main class="flex-grow pt-[100px]">
+<!-- Hero Section -->
+<section class="min-h-[819px] flex items-center relative overflow-hidden px-margin xl:px-xl py-xl max-w-screen-xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl items-center relative z-10 w-full">
+<!-- Hero Left -->
+<div class="flex flex-col items-start space-y-md">
+<div class="inline-flex items-center gap-sm bg-surface-container/50 border border-outline-variant/30 rounded-full px-md py-xs font-label-mono text-label-sm text-primary badge-pulse">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        AI-Powered • ATS Optimized
+                    </div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface" id="hero-headline">
+                        Get hired faster with AI resume scoring
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg opacity-0" style="animation: wordFade 1s 1s forwards;">
+                        Unlock your career potential. Our hyper-intelligent engine analyzes, scores, and rewrites your resume to beat the algorithms and impress human recruiters.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-sm pt-sm opacity-0 w-full sm:w-auto" style="animation: wordFade 1s 1.2s forwards;">
+<button class="bg-primary text-on-primary font-label-mono text-label-mono px-lg py-sm rounded hover:scale-[1.02] active:scale-96 transition-all shadow-[0_0_20px_rgba(161,201,255,0.2)] hover:shadow-[0_0_30px_rgba(161,201,255,0.4)] interactive-elem flex items-center justify-center gap-xs">
+                            Analyze for free
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="glass-panel text-on-surface font-label-mono text-label-mono px-lg py-sm rounded hover:bg-white/5 transition-all interactive-elem">
+                            See how it works
+                        </button>
+</div>
+</div>
+<!-- Hero Right (3D Glass Card) -->
+<div class="relative w-full aspect-[4/5] md:aspect-square flex justify-center items-center perspective-[1000px] opacity-0" style="animation: wordFade 1s 0.5s forwards;">
+<div class="w-full max-w-md glass-panel rounded-xl p-md flex flex-col gap-sm shadow-[0_20px_50px_rgba(0,0,0,0.5)]" id="hero-card">
+<div class="flex justify-between items-start border-b border-outline-variant/20 pb-sm card-layer">
+<div>
+<div class="w-16 h-4 bg-surface-bright rounded mb-2"></div>
+<div class="w-32 h-6 bg-surface-container-highest rounded"></div>
+</div>
+<div class="relative flex items-center justify-center w-16 h-16 rounded-full border-2 border-primary/30">
+<svg class="absolute inset-0 w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-bright" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="72, 100" stroke-width="3" style="filter: drop-shadow(0 0 4px rgba(161,201,255,0.8));"></path>
+</svg>
+<span class="font-label-mono text-headline-md text-primary z-10">72</span>
+</div>
+</div>
+<div class="space-y-sm card-layer">
+<div class="h-2 w-full bg-surface-bright rounded"></div>
+<div class="h-2 w-5/6 bg-surface-bright rounded"></div>
+<div class="h-2 w-4/6 bg-surface-bright rounded"></div>
+</div>
+<div class="mt-md space-y-xs card-layer">
+<div class="flex items-center gap-xs text-error font-label-mono text-label-sm">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+<span>Missing critical keywords</span>
+</div>
+<div class="flex items-center gap-xs text-secondary font-label-mono text-label-sm">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Formatting optimized</span>
+</div>
+</div>
+<div class="absolute -bottom-4 -right-4 glass-panel rounded-lg p-sm flex items-center gap-xs shadow-lg card-layer border-primary/30">
+<span class="material-symbols-outlined text-primary text-[20px] animate-bounce">auto_awesome</span>
+<span class="font-label-mono text-label-sm text-primary">AI Rewrite Ready</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-surface-container-lowest border-t border-outline-variant/20 flex flex-col md:flex-row justify-between items-center px-margin py-lg gap-md mt-xl relative z-10">
+<div class="font-display-lg text-headline-md text-primary">ResumeIQ</div>
+<div class="font-body-md text-body-md font-label-mono text-label-mono text-on-surface-variant text-center md:text-left">
+            ResumeIQ — Built with AI to get you hired
+        </div>
+<div class="flex gap-md">
+<a class="font-body-md text-body-md font-label-mono text-label-mono text-on-surface-variant hover:text-tertiary transition-colors interactive-elem" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md font-label-mono text-label-mono text-on-surface-variant hover:text-tertiary transition-colors interactive-elem" href="#">Terms of Service</a>
+<a class="font-body-md text-body-md font-label-mono text-label-mono text-on-surface-variant hover:text-tertiary transition-colors interactive-elem" href="#">Contact Support</a>
+</div>
+</footer>
+<script>
+        // Custom Cursor Logic
+        const cursor = document.getElementById('custom-cursor');
+        const interactives = document.querySelectorAll('.interactive-elem, a, button');
+        let mouseX = -1000;
+        let mouseY = -1000;
+
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            interactives.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+            });
+        }
+
+        // New Background Animation System
+        const bgCanvas = document.getElementById('bg-canvas');
+        const bgCtx = bgCanvas.getContext('2d', { alpha: false }); // Optimize for no alpha backbuffer
+        let width, height;
+        let time = 0;
+
+        function resize() {
+            width = bgCanvas.width = window.innerWidth;
+            height = bgCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const isMobile = () => width <= 768;
+
+        // --- Layer 1: Orbs ---
+        const orbs = [
+            { x: 0.2, y: 0.3, color: '#378ADD', size: 0.4, phase: 0, speed: 0.0005, dx: 0.0002, dy: 0.0001 },
+            { x: 0.8, y: 0.7, color: '#534AB7', size: 0.5, phase: Math.PI, speed: 0.0004, dx: -0.0001, dy: -0.0002 },
+            { x: 0.5, y: 0.8, color: '#1D9E75', size: 0.45, phase: Math.PI/2, speed: 0.0006, dx: 0.00015, dy: -0.00015 }
+        ];
+
+        function drawOrbs(t) {
+            orbs.forEach(orb => {
+                orb.x += orb.dx;
+                orb.y += orb.dy;
+                if (orb.x < 0 || orb.x > 1) orb.dx *= -1;
+                if (orb.y < 0 || orb.y > 1) orb.dy *= -1;
+
+                const cx = orb.x * width;
+                const cy = orb.y * height;
+                // Breathing scale
+                const scale = 1 + Math.sin(t * orb.speed + orb.phase) * 0.2;
+                const radius = orb.size * Math.max(width, height) * scale;
+
+                const gradient = bgCtx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+                gradient.addColorStop(0, orb.color + '20'); // roughly 12% opacity (hex 20 = 32/255)
+                gradient.addColorStop(1, 'rgba(19, 19, 19, 0)'); // fade to bg
+
+                bgCtx.fillStyle = gradient;
+                bgCtx.beginPath();
+                bgCtx.arc(cx, cy, radius, 0, Math.PI * 2);
+                bgCtx.fill();
+            });
+        }
+
+        // --- Layer 2: Neural Network ---
+        const keywords = ["Python", "SQL", "Leadership", "ML", "AWS", "Product", "Strategy", "Agile", "UI/UX", "Data", "React", "Cloud"];
+        const nodes = [];
+        const numNodes = 14;
+        const connections = [];
+        const pulses = [];
+
+        // Init nodes
+        for (let i = 0; i < numNodes; i++) {
+            nodes.push({
+                x: (Math.random() - 0.5) * 2, // normalized coordinates relative to center
+                y: (Math.random() - 0.5) * 2,
+                z: (Math.random() - 0.5) * 2,
+                word: i < keywords.length ? keywords[i] : ''
+            });
+        }
+
+        // Init connections (connect nearby nodes)
+        for(let i=0; i<nodes.length; i++) {
+            for(let j=i+1; j<nodes.length; j++) {
+                if(Math.random() > 0.5) { // 50% chance to connect
+                    connections.push({a: i, b: j});
+                }
+            }
+        }
+
+        // Generate a new pulse occasionally
+        function spawnPulse() {
+            if(connections.length === 0) return;
+            const conn = connections[Math.floor(Math.random() * connections.length)];
+            pulses.push({
+                conn: conn,
+                progress: 0,
+                speed: 0.005 + Math.random() * 0.005, // slow pulse
+                dir: Math.random() > 0.5 ? 1 : -1
+            });
+        }
+        setInterval(spawnPulse, 3500); // Pulse every 3-4s
+
+        function drawNetwork(t) {
+            if (isMobile()) return; // Skip complex render on mobile
+
+            bgCtx.save();
+            bgCtx.translate(width/2, height/2);
+            
+            // Slow rotation
+            const rotX = t * 0.0001;
+            const rotY = t * 0.00015;
+            
+            const projectedNodes = nodes.map(node => {
+                // Rotate
+                let x1 = node.x * Math.cos(rotY) - node.z * Math.sin(rotY);
+                let z1 = node.x * Math.sin(rotY) + node.z * Math.cos(rotY);
+                
+                let y2 = node.y * Math.cos(rotX) - z1 * Math.sin(rotX);
+                let z2 = node.y * Math.sin(rotX) + z1 * Math.cos(rotX);
+                
+                // Project (simple orthographicish for network scale)
+                const scale = width * 0.4;
+                return {
+                    x: x1 * scale,
+                    y: y2 * scale,
+                    z: z2,
+                    word: node.word
+                };
+            });
+
+            // Draw lines
+            bgCtx.lineWidth = 1;
+            bgCtx.strokeStyle = 'rgba(161, 201, 255, 0.18)'; // 18% opacity blue
+            
+            connections.forEach(conn => {
+                const p1 = projectedNodes[conn.a];
+                const p2 = projectedNodes[conn.b];
+                bgCtx.beginPath();
+                bgCtx.moveTo(p1.x, p1.y);
+                bgCtx.lineTo(p2.x, p2.y);
+                bgCtx.stroke();
+            });
+
+            // Draw pulses
+            pulses.forEach((pulse, index) => {
+                pulse.progress += pulse.speed;
+                if(pulse.progress >= 1) {
+                    pulses.splice(index, 1);
+                    return;
+                }
+                
+                const p1 = projectedNodes[pulse.dir === 1 ? pulse.conn.a : pulse.conn.b];
+                const p2 = projectedNodes[pulse.dir === 1 ? pulse.conn.b : pulse.conn.a];
+                
+                const px = p1.x + (p2.x - p1.x) * pulse.progress;
+                const py = p1.y + (p2.y - p1.y) * pulse.progress;
+                
+                bgCtx.fillStyle = '#a1c9ff';
+                bgCtx.shadowBlur = 10;
+                bgCtx.shadowColor = '#a1c9ff';
+                bgCtx.beginPath();
+                bgCtx.arc(px, py, 2, 0, Math.PI*2);
+                bgCtx.fill();
+                bgCtx.shadowBlur = 0;
+            });
+
+            // Draw nodes/text
+            bgCtx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+            bgCtx.font = "12px 'JetBrains Mono', monospace";
+            bgCtx.textAlign = "center";
+            bgCtx.textBaseline = "middle";
+
+            projectedNodes.forEach(p => {
+                bgCtx.beginPath();
+                bgCtx.arc(p.x, p.y, 2, 0, Math.PI*2);
+                bgCtx.fill();
+                
+                if(p.word) {
+                    // Fade text based on z-depth
+                    const alpha = Math.max(0.05, 0.3 - (p.z * 0.1));
+                    bgCtx.fillStyle = `rgba(161, 201, 255, ${alpha})`;
+                    bgCtx.fillText(p.word, p.x, p.y - 12);
+                    bgCtx.fillStyle = 'rgba(255, 255, 255, 0.3)'; // reset
+                }
+            });
+
+            bgCtx.restore();
+        }
+
+        function animateBg(t) {
+            // Clear with base color
+            bgCtx.fillStyle = '#131313'; // Theme background
+            bgCtx.fillRect(0, 0, width, height);
+
+            drawOrbs(t);
+            drawNetwork(t);
+
+            requestAnimationFrame(animateBg);
+        }
+        requestAnimationFrame(animateBg);
+
+
+        // Staggered Headline Text
+        const headline = document.getElementById('hero-headline');
+        const words = headline.innerText.split(' ');
+        headline.innerHTML = '';
+        words.forEach((word, index) => {
+            const span = document.createElement('span');
+            span.innerText = word + ' ';
+            span.className = 'word-stagger';
+            span.style.animation = `wordFade 0.5s ease forwards ${0.2 + (index * 0.1)}s`;
+            headline.appendChild(span);
+        });
+
+        // 3D Card Parallax Effect
+        const heroCard = document.getElementById('hero-card');
+        const heroSection = heroCard.closest('section');
+
+        heroSection.addEventListener('mousemove', (e) => {
+            const rect = heroCard.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            const rotateX = (y / rect.height) * -15; // Max 15deg
+            const rotateY = (x / rect.width) * 15;
+
+            heroCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        heroSection.addEventListener('mouseleave', () => {
+            heroCard.style.transform = `rotateX(0deg) rotateY(0deg)`;
+        });
+
+        // Scroll Reveal Logic
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    </script>
+</body></html>

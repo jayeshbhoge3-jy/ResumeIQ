@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ResumeIQ - Analysis Results</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Syne:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#ffb86f",
+                        "primary-container": "#4494e7",
+                        "surface-tint": "#a1c9ff",
+                        "on-secondary-fixed-variant": "#00513a",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-background": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "primary-fixed-dim": "#a1c9ff",
+                        "inverse-primary": "#0060a8",
+                        "on-tertiary-fixed": "#2c1600",
+                        "secondary-fixed": "#86f8c9",
+                        "on-secondary-fixed": "#002115",
+                        "on-error": "#690005",
+                        "outline": "#8b919d",
+                        "on-surface": "#e5e2e1",
+                        "tertiary-container": "#cf7e11",
+                        "outline-variant": "#414751",
+                        "on-primary-container": "#002b4f",
+                        "on-primary-fixed-variant": "#004880",
+                        "surface-container": "#201f1f",
+                        "on-tertiary": "#492900",
+                        "on-secondary": "#003827",
+                        "on-primary": "#00325a",
+                        "surface-container-highest": "#353534",
+                        "primary": "#a1c9ff",
+                        "secondary": "#68dbae",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary-container": "#402300",
+                        "surface-variant": "#353534",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#003121",
+                        "on-surface-variant": "#c0c7d3",
+                        "secondary-fixed-dim": "#68dbae",
+                        "inverse-surface": "#e5e2e1",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-low": "#1c1b1b",
+                        "surface": "#131313",
+                        "primary-fixed": "#d2e4ff",
+                        "on-primary-fixed": "#001c38",
+                        "background": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#26a37a",
+                        "tertiary-fixed-dim": "#ffb86f",
+                        "surface-bright": "#3a3939",
+                        "surface-container-lowest": "#0e0e0e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "margin": "32px",
+                        "xl": "80px",
+                        "gutter": "24px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["DM Sans"],
+                        "display-lg-mobile": ["Syne"],
+                        "headline-md": ["Syne"],
+                        "display-lg": ["Syne"],
+                        "label-mono": ["JetBrains Mono"],
+                        "body-lg": ["DM Sans"],
+                        "body-md": ["DM Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "800" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "0.01em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "0.02em", "fontWeight": "800" }],
+                        "label-mono": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Cyber-Glass Utilities */
+        .glass-card {
+            background: rgba(42, 42, 42, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.05), 0 4px 24px -4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .btn-primary {
+            background-color: var(--tw-colors-primary-container);
+            color: var(--tw-colors-on-primary-container);
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(68, 148, 231, 0.3);
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.96);
+        }
+
+        .btn-ghost {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--tw-colors-on-surface);
+            transition: all 0.2s ease;
+        }
+
+        .btn-ghost:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Material Icons setup */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Custom Scrollbar for inner components */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.02);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Initial Page State for Transition */
+        #page-content {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #page-content.loaded {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Chip Animations */
+        @keyframes fallFromTop {
+            0% { transform: translateY(-20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes riseFromBottom {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .chip-missing { animation: fallFromTop 0.5s ease-out forwards; }
+        .chip-found { animation: riseFromBottom 0.5s ease-out forwards; }
+
+        /* 3-Layer Background System Animations */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.12;
+            animation: orb-breathe-drift 15s infinite alternate ease-in-out;
+            will-change: transform;
+        }
+        .orb-1 { width: 500px; height: 500px; background: #378ADD; top: -10%; left: -10%; animation-duration: 22s; }
+        .orb-2 { width: 600px; height: 600px; background: #534AB7; top: 40%; right: -15%; animation-duration: 26s; animation-delay: -5s; }
+        .orb-3 { width: 400px; height: 400px; background: #1D9E75; bottom: -10%; left: 30%; animation-duration: 20s; animation-delay: -12s; }
+
+        @keyframes orb-breathe-drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 30px) scale(1.15); }
+            100% { transform: translate(-30px, 50px) scale(0.9); }
+        }
+
+        .bg-grid {
+            background-image: radial-gradient(rgba(255, 255, 255, 1) 1px, transparent 1px);
+            background-size: 32px 32px;
+            opacity: 0.08;
+            animation: grid-drift 20s linear infinite;
+        }
+
+        @keyframes grid-drift {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 -320px; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container relative">
+<!-- Background Animation Layers -->
+<div class="fixed inset-0 w-full h-full pointer-events-none" style="z-index: 0;">
+<!-- Layer 1: Breathing Orbs (Visible on Mobile) -->
+<div class="absolute inset-0 overflow-hidden">
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+</div>
+<!-- Layer 3: Drifting Grid (Hidden on Mobile) -->
+<div class="absolute inset-0 bg-grid hidden md:block"></div>
+<!-- Layer 2: Neural Network (Hidden on Mobile) -->
+<canvas class="absolute inset-0 w-full h-full hidden md:block" id="neural-net-canvas" style="opacity: 0.18;"></canvas>
+</div>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-xl border-b border-outline-variant/10 shadow-[0_0_20px_rgba(161,201,255,0.1)]">
+<div class="flex justify-between items-center px-margin py-base max-w-screen-xl mx-auto">
+<div class="font-display-lg text-headline-md font-extrabold text-primary tracking-tight">
+                ResumeIQ
+            </div>
+<ul class="hidden md:flex gap-margin items-center">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-all duration-300 hover:scale-[1.02]" href="#">Features</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-all duration-300 hover:scale-[1.02]" href="#">How it works</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-all duration-300 hover:scale-[1.02]" href="#">Pricing</a></li>
+</ul>
+<div>
+<button class="font-body-md text-body-md text-primary font-medium hover:text-primary-container transition-colors duration-200">
+                    Analyze my resume
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<main class="relative z-10 pt-[100px] pb-xl px-margin md:px-xl max-w-screen-xl mx-auto flex flex-col gap-margin" id="page-content">
+<!-- Header & Action Row -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-md">
+<div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface tracking-tight mb-sm">Analysis Results</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                    We've scanned your resume against 50+ industry data points. Here is your competitive breakdown.
+                </p>
+</div>
+<div class="flex gap-sm">
+<button class="btn-ghost px-md py-sm rounded-lg font-label-mono text-label-mono flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">share</span>
+                    Share
+                </button>
+<button class="btn-ghost px-md py-sm rounded-lg font-label-mono text-label-mono flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+                    Analyze another
+                </button>
+<button class="btn-primary px-md py-sm rounded-lg font-label-mono text-label-mono flex items-center gap-xs font-semibold shadow-lg">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                    Download tips
+                </button>
+</div>
+</div>
+<!-- Top Section: Hero Score & Interpretation Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Score Hero Card -->
+<div class="glass-card rounded-[24px] p-xl flex flex-col items-center justify-center lg:col-span-4 relative overflow-hidden group transition-all duration-500">
+<!-- Subtle background glow -->
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-secondary/10 via-transparent to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
+<h2 class="font-headline-md text-headline-md text-on-surface-variant mb-lg z-10 relative">Overall ATS Fit</h2>
+<div class="relative w-[180px] h-[180px] flex items-center justify-center z-10">
+<!-- Background Ring -->
+<svg class="absolute inset-0 w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle class="text-surface-container-highest" cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-width="6"></circle>
+<!-- Progress Ring -->
+<circle class="text-secondary transition-all duration-1000 ease-out" cx="50" cy="50" fill="none" id="hero-score-ring" r="45" stroke="currentColor" stroke-dasharray="283" stroke-dashoffset="283" stroke-linecap="round" stroke-width="6" style="filter: drop-shadow(0 0 8px rgba(104, 219, 174, 0.4));"></circle>
+</svg>
+<!-- Score Number -->
+<div class="flex flex-col items-center">
+<span class="font-label-mono text-[64px] leading-none font-bold text-secondary" id="hero-score-value">0</span>
+<span class="font-label-mono text-label-mono text-outline mt-1">/ 100</span>
+</div>
+</div>
+</div>
+<!-- Interpretation & Sub-scores -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter lg:col-span-8">
+<!-- Interpretation Card -->
+<div class="glass-card rounded-[24px] p-lg flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-secondary text-[28px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Good — needs improvement</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md leading-relaxed">
+                            Your resume demonstrates a solid foundation but lacks specific quantifiable impact metrics. It parses well through standard ATS systems, but the narrative layer requires optimization for human recruiters.
+                        </p>
+</div>
+<div class="flex flex-wrap gap-sm">
+<span class="px-sm py-xs rounded-full bg-tertiary-container/10 border border-tertiary-container/30 text-tertiary font-label-mono text-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Add Action Verbs
+                        </span>
+<span class="px-sm py-xs rounded-full bg-secondary/10 border border-secondary/30 text-secondary font-label-mono text-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">data_usage</span> Quantify Impact
+                        </span>
+<span class="px-sm py-xs rounded-full bg-primary/10 border border-primary/30 text-primary font-label-mono text-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">compress</span> Reduce Clutter
+                        </span>
+</div>
+</div>
+<!-- Sub-scores Card -->
+<div class="glass-card rounded-[24px] p-lg flex flex-col justify-center gap-md">
+<!-- Sub-score Item -->
+<div class="flex items-center gap-md">
+<span class="w-1/3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Keyword Match</span>
+<div class="flex-1 h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full w-0 transition-all duration-1000 ease-out delay-100 sub-score-bar" data-width="65%"></div>
+</div>
+<span class="w-10 text-right font-label-mono text-label-mono text-on-surface">65</span>
+</div>
+<!-- Sub-score Item -->
+<div class="flex items-center gap-md">
+<span class="w-1/3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Format</span>
+<div class="flex-1 h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full w-0 transition-all duration-1000 ease-out delay-200 sub-score-bar" data-width="92%"></div>
+</div>
+<span class="w-10 text-right font-label-mono text-label-mono text-on-surface">92</span>
+</div>
+<!-- Sub-score Item -->
+<div class="flex items-center gap-md">
+<span class="w-1/3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Impact</span>
+<div class="flex-1 h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-container rounded-full w-0 transition-all duration-1000 ease-out delay-300 sub-score-bar" data-width="48%"></div>
+</div>
+<span class="w-10 text-right font-label-mono text-label-mono text-on-surface">48</span>
+</div>
+<!-- Sub-score Item -->
+<div class="flex items-center gap-md">
+<span class="w-1/3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Alignment</span>
+<div class="flex-1 h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-0 transition-all duration-1000 ease-out delay-400 sub-score-bar" data-width="85%"></div>
+</div>
+<span class="w-10 text-right font-label-mono text-label-mono text-on-surface">85</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Lower Section: Keywords & Rewrites -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Keyword Gap Card -->
+<div class="glass-card rounded-[24px] p-lg flex flex-col h-[500px]">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">Keyword Analysis</h3>
+<span class="font-label-mono text-label-sm text-outline-variant uppercase tracking-widest">Target: Product Manager</span>
+</div>
+<div class="flex-1 grid grid-cols-2 gap-md overflow-hidden relative">
+<!-- Found Keywords -->
+<div class="flex flex-col gap-sm bg-surface-container/30 rounded-xl p-md border border-outline-variant/10 overflow-y-auto">
+<div class="sticky top-0 bg-surface-container/90 backdrop-blur-md pb-xs mb-xs font-label-mono text-label-mono text-secondary flex items-center gap-xs z-10">
+<span class="material-symbols-outlined text-[16px]">check</span> Found (12)
+                        </div>
+<div class="flex flex-wrap gap-sm pt-xs" id="found-chips-container">
+<!-- Chips inserted via JS to allow stagger animation -->
+</div>
+</div>
+<!-- Missing Keywords -->
+<div class="flex flex-col gap-sm bg-surface-container/30 rounded-xl p-md border border-outline-variant/10 overflow-y-auto relative">
+<div class="sticky top-0 bg-surface-container/90 backdrop-blur-md pb-xs mb-xs font-label-mono text-label-mono text-error flex items-center gap-xs z-10">
+<span class="material-symbols-outlined text-[16px]">close</span> Missing (5)
+                        </div>
+<div class="flex flex-wrap gap-sm pt-xs" id="missing-chips-container">
+<!-- Chips inserted via JS to allow stagger animation -->
+</div>
+<!-- Inline Expansion Area for Missing Chip -->
+<div class="hidden absolute bottom-0 left-0 right-0 bg-surface-container-high border-t border-error/20 p-md shadow-[0_-10px_20px_rgba(0,0,0,0.5)] z-20 transition-all duration-300 transform translate-y-full" id="keyword-expansion">
+<div class="flex justify-between items-start mb-sm">
+<h4 class="font-label-mono text-label-mono text-error font-bold" id="expand-title">Keyword</h4>
+<button class="text-outline-variant hover:text-on-surface transition-colors" id="close-expand">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<p class="font-body-sm text-[13px] text-on-surface-variant mb-xs">Suggested usage context:</p>
+<div class="bg-black/30 p-sm rounded border border-white/5 font-body-sm text-[13px] text-on-surface italic">
+                                "Spearheaded <span class="text-error font-semibold" id="expand-keyword">...</span> initiatives resulting in a 20% increase in user retention..."
+                            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bullet Rewrites Card -->
+<div class="glass-card rounded-[24px] p-lg flex flex-col h-[500px]">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">AI Bullet Rewrites</h3>
+<span class="font-label-mono text-label-sm text-primary-container bg-primary-container/10 px-xs py-[2px] rounded border border-primary-container/20">3 Suggestions</span>
+</div>
+<div class="flex-1 overflow-y-auto pr-sm flex flex-col gap-md">
+<!-- Rewrite Item 1 -->
+<div class="bg-surface-container/40 border border-outline-variant/10 rounded-xl p-md relative overflow-hidden group cursor-pointer" onclick="toggleRewrite(this)">
+<div class="rewrite-old transition-transform duration-300 ease-in-out">
+<div class="font-label-mono text-label-sm text-outline-variant mb-sm uppercase tracking-wider flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-error/50"></span> Original
+                            </div>
+<p class="font-body-md text-body-md text-on-surface-variant line-through opacity-70">
+                                Managed a team of developers to build a new mobile app for the company.
+                            </p>
+<div class="mt-md text-primary text-[12px] font-label-mono flex items-center gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                                Click to reveal optimized <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+<div class="rewrite-new absolute inset-0 bg-surface-container-high p-md flex flex-col justify-center transform translate-x-full transition-transform duration-300 ease-in-out shadow-[inset_4px_0_0_var(--tw-colors-secondary)]">
+<div class="font-label-mono text-label-sm text-secondary mb-sm uppercase tracking-wider flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span> Optimized
+                            </div>
+<p class="font-body-md text-body-md text-on-surface">
+                                Directed a cross-functional team of 6 engineers in launching a flagship iOS app, accelerating time-to-market by 15%.
+                            </p>
+</div>
+</div>
+<!-- Rewrite Item 2 -->
+<div class="bg-surface-container/40 border border-outline-variant/10 rounded-xl p-md relative overflow-hidden group cursor-pointer" onclick="toggleRewrite(this)">
+<div class="rewrite-old transition-transform duration-300 ease-in-out">
+<div class="font-label-mono text-label-sm text-outline-variant mb-sm uppercase tracking-wider flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-error/50"></span> Original
+                            </div>
+<p class="font-body-md text-body-md text-on-surface-variant line-through opacity-70">
+                                Responsible for analyzing data and making reports for management.
+                            </p>
+<div class="mt-md text-primary text-[12px] font-label-mono flex items-center gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                                Click to reveal optimized <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+<div class="rewrite-new absolute inset-0 bg-surface-container-high p-md flex flex-col justify-center transform translate-x-full transition-transform duration-300 ease-in-out shadow-[inset_4px_0_0_var(--tw-colors-secondary)]">
+<div class="font-label-mono text-label-sm text-secondary mb-sm uppercase tracking-wider flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span> Optimized
+                            </div>
+<p class="font-body-md text-body-md text-on-surface">
+                                Synthesized complex user data sets into actionable dashboards, influencing C-level strategy and reducing operational costs by $50k.
+                            </p>
+</div>
+</div>
+<!-- Rewrite Item 3 -->
+<div class="bg-surface-container/40 border border-outline-variant/10 rounded-xl p-md relative overflow-hidden group cursor-pointer" onclick="toggleRewrite(this)">
+<div class="rewrite-old transition-transform duration-300 ease-in-out">
+<div class="font-label-mono text-label-sm text-outline-variant mb-sm uppercase tracking-wider flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-error/50"></span> Original
+                            </div>
+<p class="font-body-md text-body-md text-on-surface-variant line-through opacity-70">
+                                Helped increase sales in the Q3 period by talking to customers.
+                            </p>
+<div class="mt-md text-primary text-[12px] font-label-mono flex items-center gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                                Click to reveal optimized <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+<div class="rewrite-new absolute inset-0 bg-surface-container-high p-md flex flex-col justify-center transform translate-x-full transition-transform duration-300 ease-in-out shadow-[inset_4px_0_0_var(--tw-colors-secondary)]">
+<div class="font-label-mono text-label-sm text-secondary mb-sm uppercase tracking-wider flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span> Optimized
+                            </div>
+<p class="font-body-md text-body-md text-on-surface">
+                                Cultivated strategic client relationships, driving a 32% year-over-year revenue growth during Q3.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="relative z-10 w-full bg-surface-container-lowest border-t border-outline-variant/20">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin py-lg gap-md max-w-screen-xl mx-auto">
+<div class="font-display-lg text-headline-md text-primary">
+                ResumeIQ <span class="text-on-surface-variant text-body-md font-body-md ml-sm block md:inline">— Built with AI to get you hired</span>
+</div>
+<ul class="flex gap-md font-body-md text-body-md font-label-mono text-label-mono text-on-surface-variant">
+<li><a class="hover:text-tertiary transition-colors duration-200" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-tertiary transition-colors duration-200" href="#">Terms of Service</a></li>
+<li><a class="hover:text-tertiary transition-colors duration-200" href="#">Contact Support</a></li>
+</ul>
+</div>
+</footer>
+<!-- Interactive Logic -->
+<script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // 1. Page Transition In
+            setTimeout(() => {
+                document.getElementById('page-content').classList.add('loaded');
+                initAnimations();
+            }, 100);
+
+            // 2. Data Definition for Keywords
+            const foundKeywords = ['Agile', 'Scrum', 'Python', 'Data Analysis', 'Jira', 'SQL', 'Leadership', 'Roadmap', 'A/B Testing', 'UX Design', 'Stakeholder Mgmt', 'KPIs'];
+            const missingKeywords = ['GTM Strategy', 'Market Research', 'P&L Responsibility', 'Tableau', 'Go-to-Market'];
+
+            // 3. Render Keywords with Staggered Animation
+            const renderChips = (containerId, data, typeClass) => {
+                const container = document.getElementById(containerId);
+                data.forEach((kw, index) => {
+                    const chip = document.createElement('div');
+                    const baseClass = `px-sm py-xs rounded text-[13px] font-label-mono border cursor-default transition-transform hover:scale-110 duration-200 ${typeClass}`;
+                    
+                    if(typeClass.includes('found')) {
+                        chip.className = `${baseClass} bg-secondary/10 border-secondary/20 text-secondary chip-found`;
+                    } else {
+                        chip.className = `${baseClass} bg-error/10 border-error/20 text-error chip-missing cursor-pointer`;
+                        chip.onclick = () => openKeywordContext(kw);
+                    }
+                    
+                    chip.style.animationDelay = `${index * 50}ms`;
+                    chip.textContent = kw;
+                    container.appendChild(chip);
+                });
+            };
+
+            renderChips('found-chips-container', foundKeywords, 'found');
+            renderChips('missing-chips-container', missingKeywords, 'missing');
+
+            // 4. Initialization of dynamic animations
+            function initAnimations() {
+                const targetScore = 78;
+                const ring = document.getElementById('hero-score-ring');
+                const scoreText = document.getElementById('hero-score-value');
+                
+                const circumference = 283;
+                const offset = circumference - (targetScore / 100) * circumference;
+                
+                setTimeout(() => {
+                    ring.style.strokeDashoffset = offset;
+                    
+                    if(targetScore > 75) {
+                        ring.classList.replace('text-primary', 'text-secondary');
+                        scoreText.classList.replace('text-primary', 'text-secondary');
+                    }
+                    
+                    let currentScore = 0;
+                    const duration = 1000;
+                    const stepTime = Math.abs(Math.floor(duration / targetScore));
+                    
+                    const timer = setInterval(() => {
+                        currentScore += 1;
+                        scoreText.textContent = currentScore;
+                        if (currentScore >= targetScore) {
+                            clearInterval(timer);
+                            scoreText.textContent = targetScore; 
+                        }
+                    }, stepTime);
+
+                }, 400);
+
+                setTimeout(() => {
+                    document.querySelectorAll('.sub-score-bar').forEach(bar => {
+                        const width = bar.getAttribute('data-width');
+                        bar.style.width = width;
+                    });
+                }, 600);
+            }
+
+            // 5. Keyword Context Expansion Logic
+            const expansionArea = document.getElementById('keyword-expansion');
+            const expandTitle = document.getElementById('expand-title');
+            const expandKeyword = document.getElementById('expand-keyword');
+            const closeBtn = document.getElementById('close-expand');
+
+            window.openKeywordContext = (keyword) => {
+                expandTitle.textContent = keyword;
+                expandKeyword.textContent = keyword;
+                expansionArea.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    expansionArea.classList.remove('translate-y-full');
+                    expansionArea.classList.add('translate-y-0');
+                });
+            };
+
+            closeBtn.onclick = () => {
+                expansionArea.classList.remove('translate-y-0');
+                expansionArea.classList.add('translate-y-full');
+                setTimeout(() => {
+                    expansionArea.classList.add('hidden');
+                }, 300);
+            };
+
+            // 6. Neural Network Animation (Layer 2)
+            const canvas = document.getElementById('neural-net-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let width, height;
+                const labels = ["Python", "SQL", "Leadership", "ML", "AWS", "Product", "Strategy", "Agile", "UI/UX", "Data", "React", "Cloud"];
+                let nodes = [];
+                let lines = [];
+                let pulses = [];
+                let globalRotation = 0;
+
+                function resizeCanvas() {
+                    width = canvas.width = window.innerWidth;
+                    height = canvas.height = window.innerHeight;
+                    initNetwork();
+                }
+                window.addEventListener('resize', resizeCanvas);
+                resizeCanvas();
+
+                function initNetwork() {
+                    nodes = [];
+                    lines = [];
+                    pulses = [];
+                    const numNodes = labels.length;
+                    const centerX = width / 2;
+                    const centerY = height / 2;
+                    const radius = Math.min(width, height) * 0.4;
+
+                    for (let i = 0; i < numNodes; i++) {
+                        nodes.push({
+                            id: i,
+                            angle: (i * Math.PI * 2) / numNodes,
+                            dist: radius * (0.6 + Math.random() * 0.4),
+                            label: labels[i],
+                            x: 0, y: 0
+                        });
+                    }
+
+                    for (let i = 0; i < nodes.length; i++) {
+                        for (let j = i + 1; j < nodes.length; j++) {
+                            if (Math.random() > 0.6) {
+                                lines.push({ from: i, to: j });
+                            }
+                        }
+                    }
+
+                    // Pulse generator
+                    setInterval(() => {
+                        if(lines.length > 0) {
+                            const line = lines[Math.floor(Math.random() * lines.length)];
+                            pulses.push({
+                                line: line,
+                                progress: 0,
+                                speed: 0.005 + Math.random() * 0.005 
+                            });
+                        }
+                    }, 3500);
+                }
+
+                function drawNetwork() {
+                    ctx.clearRect(0, 0, width, height);
+                    
+                    globalRotation += 0.001; 
+                    const centerX = width / 2;
+                    const centerY = height / 2;
+
+                    nodes.forEach(node => {
+                        node.x = centerX + Math.cos(node.angle + globalRotation) * node.dist;
+                        node.y = centerY + Math.sin(node.angle + globalRotation) * node.dist;
+                    });
+
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                    lines.forEach(line => {
+                        const n1 = nodes[line.from];
+                        const n2 = nodes[line.to];
+                        ctx.beginPath();
+                        ctx.moveTo(n1.x, n1.y);
+                        ctx.lineTo(n2.x, n2.y);
+                        ctx.stroke();
+                    });
+
+                    for (let i = pulses.length - 1; i >= 0; i--) {
+                        let p = pulses[i];
+                        p.progress += p.speed;
+                        if (p.progress >= 1) {
+                            pulses.splice(i, 1);
+                        } else {
+                            const n1 = nodes[p.line.from];
+                            const n2 = nodes[p.line.to];
+                            const px = n1.x + (n2.x - n1.x) * p.progress;
+                            const py = n1.y + (n2.y - n1.y) * p.progress;
+                            
+                            ctx.beginPath();
+                            ctx.arc(px, py, 3, 0, Math.PI * 2);
+                            ctx.fillStyle = '#378ADD';
+                            ctx.shadowBlur = 10;
+                            ctx.shadowColor = '#378ADD';
+                            ctx.fill();
+                            ctx.shadowBlur = 0;
+                        }
+                    }
+
+                    ctx.font = '12px "JetBrains Mono"';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    
+                    nodes.forEach(node => {
+                        ctx.beginPath();
+                        ctx.arc(node.x, node.y, 4, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                        ctx.fill();
+                        
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                        ctx.fillText(node.label, node.x, node.y - 12);
+                    });
+
+                    requestAnimationFrame(drawNetwork);
+                }
+                drawNetwork();
+            }
+        });
+
+        // 7. Rewrite Toggle Logic
+        function toggleRewrite(element) {
+            const oldDiv = element.querySelector('.rewrite-old');
+            const newDiv = element.querySelector('.rewrite-new');
+            
+            if (newDiv.classList.contains('translate-x-full')) {
+                newDiv.classList.remove('translate-x-full');
+                newDiv.classList.add('translate-x-0');
+                oldDiv.classList.add('-translate-x-full');
+            } else {
+                newDiv.classList.add('translate-x-full');
+                newDiv.classList.remove('translate-x-0');
+                oldDiv.classList.remove('-translate-x-full');
+            }
+        }
+    </script>
+</body></html>

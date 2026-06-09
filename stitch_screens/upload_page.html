@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Upload Resume - ResumeIQ</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Syne:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary": "#ffb86f",
+                        "primary-container": "#4494e7",
+                        "surface-tint": "#a1c9ff",
+                        "on-secondary-fixed-variant": "#00513a",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "tertiary-fixed": "#ffdcbd",
+                        "on-background": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "primary-fixed-dim": "#a1c9ff",
+                        "inverse-primary": "#0060a8",
+                        "on-tertiary-fixed": "#2c1600",
+                        "secondary-fixed": "#86f8c9",
+                        "on-secondary-fixed": "#002115",
+                        "on-error": "#690005",
+                        "outline": "#8b919d",
+                        "on-surface": "#e5e2e1",
+                        "tertiary-container": "#cf7e11",
+                        "outline-variant": "#414751",
+                        "on-primary-container": "#002b4f",
+                        "on-primary-fixed-variant": "#004880",
+                        "surface-container": "#201f1f",
+                        "on-tertiary": "#492900",
+                        "on-secondary": "#003827",
+                        "on-primary": "#00325a",
+                        "surface-container-highest": "#353534",
+                        "primary": "#a1c9ff",
+                        "secondary": "#68dbae",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary-container": "#402300",
+                        "surface-variant": "#353534",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#003121",
+                        "on-surface-variant": "#c0c7d3",
+                        "secondary-fixed-dim": "#68dbae",
+                        "inverse-surface": "#e5e2e1",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-low": "#1c1b1b",
+                        "surface": "#131313",
+                        "primary-fixed": "#d2e4ff",
+                        "on-primary-fixed": "#001c38",
+                        "background": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#26a37a",
+                        "tertiary-fixed-dim": "#ffb86f",
+                        "surface-bright": "#3a3939",
+                        "surface-container-lowest": "#0e0e0e"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "base": "8px",
+                        "margin": "32px",
+                        "xl": "80px",
+                        "gutter": "24px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "lg": "48px"
+                    },
+                    fontFamily: {
+                        "label-sm": ["DM Sans"],
+                        "display-lg-mobile": ["Syne"],
+                        "headline-md": ["Syne"],
+                        "display-lg": ["Syne"],
+                        "label-mono": ["JetBrains Mono"],
+                        "body-lg": ["DM Sans"],
+                        "body-md": ["DM Sans"]
+                    },
+                    fontSize: {
+                        "label-sm": ["12px", { "lineHeight": "1", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "800" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "0.01em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "0.02em", "fontWeight": "800" }],
+                        "label-mono": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    },
+                    animation: {
+                        'slide-in-right': 'slideInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'bounce-subtle': 'bounceSubtle 2s infinite ease-in-out',
+                        'pulse-glow': 'pulseGlow 2s infinite',
+                        'dash-draw': 'dashDraw 1.5s ease-out forwards',
+                        'drift-up': 'driftUp 20s linear infinite',
+                        'breathe': 'breathe 8s ease-in-out infinite alternate',
+                        'breathe-slow': 'breathe 12s ease-in-out infinite alternate',
+                        'breathe-slower': 'breathe 10s ease-in-out infinite alternate',
+                        'drift': 'drift 20s linear infinite',
+                        'drift-slow': 'drift 25s linear infinite',
+                        'drift-slower': 'drift 22s linear infinite',
+                    },
+                    keyframes: {
+                        slideInRight: {
+                            '0%': { transform: 'translateX(50px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        bounceSubtle: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-8px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.4' },
+                            '50%': { opacity: '1' },
+                        },
+                        dashDraw: {
+                            '0%': { strokeDasharray: '0, 1000' },
+                            '100%': { strokeDasharray: '1000, 1000' },
+                        },
+                        driftUp: {
+                            '0%': { transform: 'translateY(0)' },
+                            '100%': { transform: 'translateY(-320px)' },
+                        },
+                        breathe: {
+                            '0%': { transform: 'scale(0.8)' },
+                            '100%': { transform: 'scale(1.2)' },
+                        },
+                        drift: {
+                            '0%': { translate: '0 0' },
+                            '33%': { translate: '100px -50px' },
+                            '66%': { translate: '-50px 100px' },
+                            '100%': { translate: '0 0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0e0e0e;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: #a1c9ff;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 10;
+        }
+        
+        .cyber-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .cyber-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+        }
+        .cyber-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(161, 201, 255, 0.2);
+            border-radius: 4px;
+        }
+        .cyber-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(161, 201, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden selection:bg-primary-container/30 selection:text-primary relative">
+<!-- Layer 1: Blurred Orbs -->
+<div class="fixed inset-0 pointer-events-none z-[-3] overflow-hidden">
+<div class="absolute rounded-full blur-[100px] opacity-[0.12] bg-[#378ADD] w-[600px] h-[600px] top-[-100px] left-[-100px] animate-breathe animate-drift"></div>
+<div class="absolute rounded-full blur-[100px] opacity-[0.12] bg-[#534AB7] w-[800px] h-[800px] bottom-[-200px] right-[-100px] animate-breathe-slow animate-drift-slow" style="animation-delay: -5s;"></div>
+<div class="absolute rounded-full blur-[100px] opacity-[0.12] bg-[#1D9E75] w-[500px] h-[500px] top-[30%] left-[40%] animate-breathe-slower animate-drift-slower" style="animation-delay: -10s;"></div>
+</div>
+<!-- Layer 3: Dot Grid (Hidden on mobile) -->
+<div class="hidden md:block fixed inset-[-100%] pointer-events-none z-[-2] bg-[radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[length:32px_32px] animate-drift-up"></div>
+<!-- Layer 2: Neural Net (Hidden on mobile) -->
+<canvas class="hidden md:block fixed inset-0 pointer-events-none z-[-1] opacity-[0.18]" id="neural-canvas"></canvas>
+<nav class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-xl border-b border-outline-variant/10 shadow-[0_0_20px_rgba(161,201,255,0.1)] transition-all duration-300">
+<div class="flex justify-between items-center px-margin py-base max-w-screen-xl mx-auto">
+<div class="font-display-lg text-headline-md font-extrabold text-primary tracking-tight">ResumeIQ</div>
+<div class="hidden md:flex gap-margin items-center">
+<a class="text-on-surface-variant font-label-mono text-label-mono hover:text-primary transition-all duration-300 hover:scale-[1.02]" href="#">Features</a>
+<a class="text-on-surface-variant font-label-mono text-label-mono hover:text-primary transition-all duration-300 hover:scale-[1.02]" href="#">How it works</a>
+<a class="text-on-surface-variant font-label-mono text-label-mono hover:text-primary transition-all duration-300 hover:scale-[1.02]" href="#">Pricing</a>
+</div>
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded-lg font-label-mono text-label-mono hover:shadow-[0_0_20px_rgba(161,201,255,0.2)] transition-all duration-300 active:scale-95">Analyze my resume</button>
+</div>
+</nav>
+<main class="flex-grow flex items-center justify-center px-4 pt-24 pb-12 opacity-0 animate-slide-in-right relative z-10">
+<!-- The Glass Card -->
+<div class="w-full max-w-[860px] bg-surface-container/40 backdrop-blur-[16px] rounded-[16px] border border-white/10 shadow-[inset_1px_1px_0_rgba(255,255,255,0.05),0_20px_40px_-10px_rgba(0,0,0,0.5)] overflow-hidden relative transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" id="upload-card">
+<div class="p-8 md:p-10 flex flex-col gap-10 opacity-100 transition-opacity duration-300" id="card-content">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<!-- Left: Upload Zone -->
+<div class="flex flex-col gap-4">
+<div class="font-label-mono text-label-mono text-primary/80 tracking-widest uppercase">01 — UPLOAD RESUME</div>
+<div class="relative group h-[280px] rounded-xl border-2 border-dashed border-outline-variant/40 bg-surface-dim/40 hover:bg-surface-dim/60 hover:border-primary/50 transition-all duration-300 flex flex-col items-center justify-center gap-4 cursor-pointer overflow-hidden shadow-[inset_0_0_40px_rgba(0,0,0,0.2)]" id="drop-zone">
+<input accept=".pdf,.doc,.docx" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" id="file-input" type="file"/>
+<div class="flex flex-col items-center justify-center gap-4 pointer-events-none z-10 transition-transform duration-300 group-hover:-translate-y-2" id="drop-content">
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 shadow-[0_0_15px_rgba(161,201,255,0.1)] group-hover:shadow-[0_0_25px_rgba(161,201,255,0.2)] transition-shadow">
+<span class="material-symbols-outlined text-primary text-[32px] animate-bounce-subtle" style="font-variation-settings: 'FILL' 0, 'wght' 200;">upload_file</span>
+</div>
+<div class="text-center">
+<p class="font-body-md text-on-surface mb-1">Drag &amp; Drop file here</p>
+<p class="font-label-sm text-on-surface-variant/60 uppercase tracking-wider">PDF, DOCX up to 5MB</p>
+</div>
+</div>
+<!-- Morph Target: File Chip -->
+<div class="absolute inset-0 flex items-center justify-center bg-surface-container opacity-0 scale-95 pointer-events-none transition-all duration-500 z-10" id="file-chip">
+<div class="flex items-center gap-4 p-4 rounded-lg bg-surface border border-primary/30 shadow-[0_0_20px_rgba(161,201,255,0.1)]">
+<div class="w-10 h-10 rounded bg-primary/20 flex items-center justify-center">
+<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path class="drop-check" d="M20 6L9 17l-5-5" stroke-dasharray="100" stroke-dashoffset="100" style="transition: stroke-dashoffset 0.6s ease-out 0.2s;"></path>
+</svg>
+</div>
+<div class="flex flex-col">
+<span class="font-label-mono text-label-mono text-on-surface truncate w-32" id="file-name">resume.pdf</span>
+<span class="font-label-sm text-success text-[#68dbae]">Ready for analysis</span>
+</div>
+<button class="ml-2 text-on-surface-variant hover:text-error transition-colors pointer-events-auto" id="remove-file">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Job Description -->
+<div class="flex flex-col gap-4">
+<div class="font-label-mono text-label-mono text-primary/80 tracking-widest uppercase flex justify-between items-end">
+<span>02 — JOB DESCRIPTION</span>
+<span class="text-xs text-on-surface-variant/40 opacity-0 transition-opacity duration-300" id="char-count">0 / 5000</span>
+</div>
+<div class="relative h-[280px] group">
+<textarea class="w-full h-full resize-none bg-black/20 border border-white/5 rounded-xl p-5 font-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none focus:border-primary/50 focus:bg-black/40 transition-all duration-300 cyber-scrollbar shadow-[inset_2px_2px_10px_rgba(0,0,0,0.3)]" id="job-desc" placeholder="Paste the target job description here to align the analysis context..."></textarea>
+<!-- Decorative Corner Brackets -->
+<div class="absolute top-0 left-0 w-4 h-4 border-t border-l border-white/20 rounded-tl-xl pointer-events-none group-focus-within:border-primary/50 transition-colors"></div>
+<div class="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-white/20 rounded-br-xl pointer-events-none group-focus-within:border-primary/50 transition-colors"></div>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full relative overflow-hidden group rounded-xl bg-transparent border border-primary/30 p-[1px] transition-all duration-300 hover:shadow-[0_0_30px_rgba(161,201,255,0.15)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none mt-2" id="analyze-btn">
+<!-- Glass background layer -->
+<div class="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors"></div>
+<div class="relative bg-surface-container/50 backdrop-blur-md rounded-[11px] flex items-center justify-center gap-3 py-4 z-10 transition-transform duration-200 group-active:scale-[0.98]">
+<span class="material-symbols-outlined text-primary group-hover:animate-pulse-glow" style="font-variation-settings: 'wght' 300;">memory</span>
+<span class="font-label-mono text-label-mono text-on-surface tracking-wider uppercase group-hover:text-primary transition-colors">Initialize Analysis</span>
+</div>
+</button>
+</div>
+<!-- Analyzing State Overlay -->
+<div class="absolute inset-0 bg-surface-container/90 backdrop-blur-2xl flex flex-col items-center justify-center opacity-0 pointer-events-none z-30 transition-opacity duration-500" id="analyzing-state">
+<div class="w-full max-w-md px-8 flex flex-col items-center gap-8">
+<!-- Scanner Graphic -->
+<div class="relative w-32 h-32 flex items-center justify-center">
+<div class="absolute inset-0 border-2 border-dashed border-primary/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
+<div class="absolute inset-2 border border-primary/40 rounded-full animate-[spin_4s_linear_infinite_reverse]"></div>
+<span class="material-symbols-outlined text-primary text-[48px] animate-pulse" style="font-variation-settings: 'wght' 200;">document_scanner</span>
+<!-- Scanning Line -->
+<div class="absolute inset-0 overflow-hidden rounded-full">
+<div class="w-full h-1 bg-primary shadow-[0_0_15px_#a1c9ff] absolute top-0 animate-[translateY_2s_ease-in-out_infinite]"></div>
+</div>
+</div>
+<!-- Terminal Output -->
+<div class="w-full bg-black/40 border border-white/5 rounded-lg p-4 h-24 flex flex-col justify-end overflow-hidden shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
+<div class="font-label-mono text-[13px] text-primary/80 flex flex-col gap-1 transition-transform duration-300" id="terminal-text">
+<span class="opacity-40">&gt; System initialized...</span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full flex flex-col gap-2">
+<div class="flex justify-between font-label-mono text-[11px] uppercase tracking-widest text-on-surface-variant">
+<span id="status-label">Extracting Tokens</span>
+<span class="text-primary" id="progress-percentage">0%</span>
+</div>
+<div class="w-full h-1 bg-surface-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-0 transition-all duration-300 shadow-[0_0_10px_#a1c9ff]" id="progress-bar-fill"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="w-full bg-surface-container-lowest border-t border-outline-variant/20 py-lg px-margin flex flex-col md:flex-row justify-between items-center gap-md font-body-md text-body-md z-10 relative">
+<div class="font-display-lg text-headline-md text-primary">ResumeIQ</div>
+<div class="text-on-surface font-label-mono text-label-mono text-center md:text-left">ResumeIQ — Built with AI to get you hired</div>
+<div class="flex gap-md">
+<a class="text-on-surface-variant hover:text-tertiary transition-colors duration-200 font-label-mono text-label-mono" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-tertiary transition-colors duration-200 font-label-mono text-label-mono" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-tertiary transition-colors duration-200 font-label-mono text-label-mono" href="#">Contact Support</a>
+</div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Layer 2: Neural Net Canvas ---
+            const canvas = document.getElementById('neural-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let width, height;
+                let nodes = [];
+                let lines = [];
+                const keywords = ["Python", "SQL", "Leadership", "ML", "AWS", "Product", "Strategy", "Agile", "UI/UX", "Data", "React", "Cloud"];
+                let rotationAngle = 0;
+
+                function resizeCanvas() {
+                    width = canvas.width = window.innerWidth;
+                    height = canvas.height = window.innerHeight;
+                    initNetwork();
+                }
+
+                window.addEventListener('resize', resizeCanvas);
+
+                class Node {
+                    constructor(label) {
+                        this.label = label;
+                        this.x = (Math.random() - 0.5) * width * 0.8;
+                        this.y = (Math.random() - 0.5) * height * 0.8;
+                        this.z = Math.random() * 200 + 100;
+                        this.baseX = this.x;
+                        this.baseY = this.y;
+                        this.baseZ = this.z;
+                        this.radius = 4;
+                    }
+                }
+
+                class Line {
+                    constructor(nodeA, nodeB) {
+                        this.nodeA = nodeA;
+                        this.nodeB = nodeB;
+                        this.pulseProgress = Math.random();
+                        this.pulseSpeed = 0.002 + Math.random() * 0.002; 
+                    }
+                }
+
+                function initNetwork() {
+                    nodes = [];
+                    lines = [];
+                    const numNodes = Math.min(15, keywords.length);
+                    for (let i = 0; i < numNodes; i++) {
+                        nodes.push(new Node(keywords[i]));
+                    }
+                    
+                    // Connect nodes randomly
+                    for (let i = 0; i < nodes.length; i++) {
+                        let connections = 0;
+                        for (let j = i + 1; j < nodes.length; j++) {
+                            if (Math.random() > 0.6 && connections < 3) {
+                                lines.push(new Line(nodes[i], nodes[j]));
+                                connections++;
+                            }
+                        }
+                    }
+                }
+
+                function animateNetwork() {
+                    ctx.clearRect(0, 0, width, height);
+                    
+                    rotationAngle += 0.0005; // Slow rotation
+                    
+                    const centerX = width / 2;
+                    const centerY = height / 2;
+
+                    // Draw lines
+                    ctx.lineWidth = 1;
+                    lines.forEach(line => {
+                        const x1 = centerX + line.nodeA.x * Math.cos(rotationAngle) - line.nodeA.z * Math.sin(rotationAngle);
+                        const y1 = centerY + line.nodeA.y;
+                        const x2 = centerX + line.nodeB.x * Math.cos(rotationAngle) - line.nodeB.z * Math.sin(rotationAngle);
+                        const y2 = centerY + line.nodeB.y;
+
+                        ctx.beginPath();
+                        ctx.strokeStyle = "rgba(161, 201, 255, 0.3)";
+                        ctx.moveTo(x1, y1);
+                        ctx.lineTo(x2, y2);
+                        ctx.stroke();
+
+                        // Update and draw pulse dot
+                        line.pulseProgress += line.pulseSpeed;
+                        if (line.pulseProgress > 1) line.pulseProgress = 0;
+                        
+                        const dotX = x1 + (x2 - x1) * line.pulseProgress;
+                        const dotY = y1 + (y2 - y1) * line.pulseProgress;
+                        
+                        ctx.beginPath();
+                        ctx.arc(dotX, dotY, 2, 0, Math.PI * 2);
+                        ctx.fillStyle = "rgba(55, 138, 221, 0.8)";
+                        ctx.fill();
+                        
+                        // Dot glow
+                        ctx.shadowBlur = 10;
+                        ctx.shadowColor = "#378ADD";
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+                    });
+
+                    // Draw nodes
+                    nodes.forEach(node => {
+                        const x = centerX + node.x * Math.cos(rotationAngle) - node.z * Math.sin(rotationAngle);
+                        const y = centerY + node.y;
+                        
+                        // Node circle
+                        ctx.beginPath();
+                        ctx.arc(x, y, node.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = "rgba(161, 201, 255, 0.6)";
+                        ctx.fill();
+                        
+                        // Label
+                        ctx.font = "12px 'JetBrains Mono'";
+                        ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+                        ctx.textAlign = "center";
+                        ctx.fillText(node.label, x, y - 10);
+                    });
+
+                    requestAnimationFrame(animateNetwork);
+                }
+
+                resizeCanvas();
+                animateNetwork();
+            }
+
+            // --- Existing Form Logic ---
+            const dropZone = document.getElementById('drop-zone');
+            const fileInput = document.getElementById('file-input');
+            const dropContent = document.getElementById('drop-content');
+            const fileChip = document.getElementById('file-chip');
+            const fileNameDisplay = document.getElementById('file-name');
+            const removeFileBtn = document.getElementById('remove-file');
+            const checkPath = document.querySelector('.drop-check');
+            
+            const textarea = document.getElementById('job-desc');
+            const charCount = document.getElementById('char-count');
+            
+            const analyzeBtn = document.getElementById('analyze-btn');
+            const cardContent = document.getElementById('card-content');
+            const analyzingState = document.getElementById('analyzing-state');
+            const terminalText = document.getElementById('terminal-text');
+            const statusLabel = document.getElementById('status-label');
+            const progressBarFill = document.getElementById('progress-bar-fill');
+            const progressPercentage = document.getElementById('progress-percentage');
+
+            let hasFile = false;
+
+            // --- Textarea Logic ---
+            textarea.addEventListener('input', () => {
+                const len = textarea.value.length;
+                charCount.textContent = `${len} / 5000`;
+                if (len > 0) {
+                    charCount.classList.remove('opacity-0');
+                    charCount.classList.add('opacity-100');
+                } else {
+                    charCount.classList.add('opacity-0');
+                    charCount.classList.remove('opacity-100');
+                }
+            });
+
+            // --- Drag & Drop Logic ---
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => {
+                    if(!hasFile) dropZone.classList.add('border-primary', 'bg-surface-dim/80');
+                }, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => {
+                    if(!hasFile) dropZone.classList.remove('border-primary', 'bg-surface-dim/80');
+                }, false);
+            });
+
+            dropZone.addEventListener('drop', handleDrop, false);
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    handleFiles(this.files);
+                }
+            });
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
+
+            function handleFiles(files) {
+                if (files.length > 0) {
+                    const file = files[0];
+                    fileNameDisplay.textContent = file.name;
+                    showFileChip();
+                    createParticles(dropZone);
+                }
+            }
+
+            function showFileChip() {
+                hasFile = true;
+                dropContent.classList.add('opacity-0', 'scale-95');
+                fileInput.classList.add('hidden');
+                dropZone.classList.remove('border-dashed');
+                dropZone.classList.add('border-solid', 'border-primary/30');
+                
+                setTimeout(() => {
+                    fileChip.classList.remove('opacity-0', 'scale-95');
+                    fileChip.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+                    checkPath.style.strokeDashoffset = '0'; // Animate checkmark
+                }, 150);
+            }
+
+            removeFileBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                hasFile = false;
+                fileInput.value = '';
+                fileChip.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                fileChip.classList.add('opacity-0', 'scale-95');
+                checkPath.style.strokeDashoffset = '100'; // Reset checkmark
+                
+                setTimeout(() => {
+                    dropContent.classList.remove('opacity-0', 'scale-95');
+                    fileInput.classList.remove('hidden');
+                    dropZone.classList.add('border-dashed');
+                    dropZone.classList.remove('border-solid', 'border-primary/30');
+                }, 300);
+            });
+
+            // --- Particle Effect ---
+            function createParticles(element) {
+                const rect = element.getBoundingClientRect();
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    const size = Math.random() * 4 + 2;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    
+                    particle.style.left = `${centerX}px`;
+                    particle.style.top = `${centerY}px`;
+                    
+                    element.appendChild(particle);
+                    
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = Math.random() * 60 + 20;
+                    const tx = Math.cos(angle) * velocity;
+                    const ty = Math.sin(angle) * velocity;
+                    
+                    particle.animate([
+                        { transform: 'translate(0, 0)', opacity: 1 },
+                        { transform: `translate(${tx}px, ${ty}px)`, opacity: 0 }
+                    ], {
+                        duration: Math.random() * 500 + 400,
+                        easing: 'cubic-bezier(0, .9, .57, 1)',
+                        fill: 'forwards'
+                    });
+                    
+                    setTimeout(() => particle.remove(), 1000);
+                }
+            }
+
+            // --- Analyze Button Morphing Logic ---
+            const statusMessages = [
+                "> Parsing PDF structure...",
+                "> Extracting text vectors...",
+                "> Aligning job requirements...",
+                "> Calculating keyword density...",
+                "> Generating ATS score..."
+            ];
+
+            analyzeBtn.addEventListener('click', () => {
+                if(!hasFile) {
+                    dropZone.animate([
+                        { transform: 'translateX(0)' },
+                        { transform: 'translateX(-5px)' },
+                        { transform: 'translateX(5px)' },
+                        { transform: 'translateX(-5px)' },
+                        { transform: 'translateX(5px)' },
+                        { transform: 'translateX(0)' }
+                    ], { duration: 400 });
+                    return;
+                }
+
+                cardContent.classList.add('opacity-0', 'pointer-events-none');
+                
+                setTimeout(() => {
+                    analyzingState.classList.remove('opacity-0', 'pointer-events-none');
+                    analyzingState.classList.add('opacity-100');
+                    startAnalysisSimulation();
+                }, 300);
+            });
+
+            function startAnalysisSimulation() {
+                let progress = 0;
+                let messageIndex = 0;
+                
+                const interval = setInterval(() => {
+                    progress += Math.random() * 5;
+                    if (progress >= 100) progress = 100;
+                    
+                    progressBarFill.style.width = `${progress}%`;
+                    progressPercentage.textContent = `${Math.floor(progress)}%`;
+
+                    if (progress > (messageIndex + 1) * 20 && messageIndex < statusMessages.length) {
+                        const span = document.createElement('span');
+                        span.textContent = statusMessages[messageIndex];
+                        span.className = "animate-slide-in-right opacity-80";
+                        terminalText.appendChild(span);
+                        
+                        if (terminalText.children.length > 3) {
+                            terminalText.removeChild(terminalText.firstChild);
+                        }
+                        
+                        statusLabel.textContent = statusMessages[messageIndex].replace("> ", "");
+                        messageIndex++;
+                    }
+
+                    if (progress === 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            const span = document.createElement('span');
+                            span.textContent = "> Analysis Complete. Routing...";
+                            span.className = "text-[#68dbae] animate-slide-in-right font-bold";
+                            terminalText.appendChild(span);
+                            statusLabel.textContent = "Done";
+                            statusLabel.classList.add('text-[#68dbae]');
+                        }, 500);
+                    }
+                }, 200);
+            }
+        });
+    </script>
+</body></html>
